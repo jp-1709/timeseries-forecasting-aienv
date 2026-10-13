@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: price-prediction-api
+    env: docker
+    repo: https://github.com/Arihant-Rock/Price-Prediction.git
+    region: oregon
+    plan: free
+    branch: master
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_URI
+        sync: false
+      - key: FRED_API_KEY
+        value: eef937e67eb512ee84fb8e3bee979ed3
+      - key: PORT
+        value: 8000
+    healthCheckPath: /
+
+  - type: web
+    name: steel-hrc-dashboard
+    env: static
+    repo: https://github.com/Arihant-Rock/Price-Prediction.git
+    region: oregon
+    branch: master
+    buildCommand: echo "Static site, no build needed"
+    staticPublishPath: ./dashboard
+    headers:
+      - path: /*
+        name: Access-Control-Allow-Origin
+        value: "*"

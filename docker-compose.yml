@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    volumes:
+      # Bind-mounts: changes on host reflect in container and vice versa.
+      # The ./app bind-mount means gpr.csv written to /app/app/gpr.csv is
+      # persisted back to the host ./app/gpr.csv, surviving container restarts.
+      - ./app:/app/app
+      - ./dashboard:/app/dashboard
+      - ./daily_update.py:/app/daily_update.py

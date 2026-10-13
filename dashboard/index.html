@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commodity Price Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .commodity-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .commodity-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            border-radius: 20px;
+            background: rgba(102, 126, 234, 0.08);
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+        }
+        .commodity-btn:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #e2e8f0;
+            border-color: rgba(102, 126, 234, 0.6);
+        }
+        .commodity-btn.active {
+            background: rgba(102, 126, 234, 0.9);
+            color: #fff;
+            border-color: rgb(102, 126, 234);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Commodity Price Dashboard</h1>
+            <p class="subtitle">Real-time market data & AI-powered predictions</p>
+            <div class="commodity-selector">
+                <button class="commodity-btn" data-commodity="gold">Gold</button>
+                <button class="commodity-btn" data-commodity="silver">Silver</button>
+                <button class="commodity-btn" data-commodity="copper">Copper</button>
+                <button class="commodity-btn" data-commodity="crudeoil_wti">Crude Oil (WTI)</button>
+                <button class="commodity-btn" data-commodity="naturalgas">Natural Gas</button>
+                <button class="commodity-btn active" data-commodity="steel_hrc">Steel HRC</button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="section left-section">
+                <div class="card price-card">
+                    <h2 class="card-title">Current Market Price &mdash; <span id="commodityLabel">Steel HRC</span></h2>
+                    <div class="price-display">
+                        <div class="price-value" id="currentPrice">--</div>
+                        <div class="price-change" id="priceChange">
+                            <span class="change-value">--</span>
+                        </div>
+                    </div>
+                    <div class="price-meta">
+                        <span id="lastUpdated">Last updated: --</span>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Historical Trends</h2>
+                        <div class="time-range-buttons">
+                            <button class="time-btn" data-days="5">5D</button>
+                            <button class="time-btn active" data-days="30">1M</button>
+                            <button class="time-btn" data-days="90">3M</button>
+                            <button class="time-btn" data-days="180">6M</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="historicalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section right-section">
+                <div class="predictions-grid">
+                    <div class="card prediction-card">
+                        <h3 class="prediction-label">1 Day Forecast</h3>
+                        <div class="prediction-value" id="pred1d">--</div>
+                        <div class="prediction-change" id="change1d">--</div>
+                    </div>
+                    <div class="card prediction-card">
+                        <h3 class="prediction-label">7 Days Forecast</h3>
+                        <div class="prediction-value" id="pred7d">--</div>
+                        <div class="prediction-change" id="change7d">--</div>
+                    </div>
+                    <div class="card prediction-card">
+                        <h3 class="prediction-label">30 Days Forecast</h3>
+                        <div class="prediction-value" id="pred30d">--</div>
+                        <div class="prediction-change" id="change30d">--</div>
+                    </div>
+                    <div class="card prediction-card">
+                        <h3 class="prediction-label">60 Days Forecast</h3>
+                        <div class="prediction-value" id="pred60d">--</div>
+                        <div class="prediction-change" id="change60d">--</div>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Price Forecast</h2>
+                        <div class="legend">
+                            <span class="legend-item">
+                                <span class="legend-line historical"></span>
+                                Historical
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-line forecast"></span>
+                                Forecast
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="forecastChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>Loading data...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

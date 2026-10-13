@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pandas
+numpy
+yfinance
+sqlalchemy
+psycopg2-binary
+xgboost
+requests
+fredapi
+open-meteo
+scikit-learn
+openpyxl
+xlrd
+apscheduler
